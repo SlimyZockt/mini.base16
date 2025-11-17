@@ -206,12 +206,12 @@ MiniBase16.config = {
     -- `false`), or table with cterm colors. See `setup()` documentation for
     -- more information.
     use_cterm = nil,
+    transparent = false,
 
     -- Plugin integrations. Use `default = false` to disable all integrations.
     -- Also can be set per plugin (see |MiniBase16.config|).
     plugins = {
         default = true,
-        transparent = false,
     },
 }
 --minidoc_afterlines_end
@@ -371,7 +371,7 @@ end
 H.apply_config = function(config)
     MiniBase16.config = config
 
-    H.apply_palette(config.palette, config.use_cterm)
+    H.apply_palette(config.palette, config.use_cterm, config.transparent)
 end
 
 -- Validators -----------------------------------------------------------------
@@ -444,7 +444,7 @@ H.validate_hex = function(x, x_name)
 end
 
 -- Highlighting ---------------------------------------------------------------
-H.apply_palette = function(palette, use_cterm)
+H.apply_palette = function(palette, use_cterm, transparent)
     -- Prepare highlighting application. Notes:
     -- - Clear current highlight only if other theme was loaded previously.
     -- - No need to `syntax reset` because *all* syntax groups are defined later.
@@ -505,9 +505,9 @@ H.apply_palette = function(palette, use_cterm)
     hi('MsgArea', { link = 'Normal' })
     hi('MsgSeparator', { fg = p.base02, bg = p.base02, attr = nil, sp = nil })
     hi('NonText', { fg = p.base03, bg = nil, attr = nil, sp = nil })
-    hi('Normal', { fg = p.base05, bg = (p.transparent and "NONE" or p.base00), attr = nil, sp = nil })
-    hi('NormalFloat', { fg = p.base05, bg = (p.transparent and "NONE" or p.base01), attr = nil, sp = nil })
-    hi('NormalNC', { fg = p.base05, bg = (p.transparent and "NONE" or p.base00), attr = nil, sp = nil })
+    hi('Normal', { fg = p.base05, bg = (transparent and "NONE" or p.base00), attr = nil, sp = nil })
+    hi('NormalFloat', { fg = p.base05, bg = (transparent and "NONE" or p.base01), attr = nil, sp = nil })
+    hi('NormalNC', { fg = p.base05, bg = (transparent and "NONE" or p.base00), attr = nil, sp = nil })
     hi('OkMsg', { fg = p.base0B, bg = nil, attr = nil, sp = nil })
     hi('Pmenu', { fg = p.base05, bg = p.base01, attr = nil, sp = nil })
     hi('PmenuExtra', { link = 'Pmenu' })
